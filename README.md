@@ -1,1 +1,5 @@
 # GPTI
+El .env debe contener:
+POSTGRES_DB=
+DATABASE_USER=
+DATABASE_PASSWORD=
