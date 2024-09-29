@@ -1,7 +1,7 @@
 import openai
 
 # Configura tu clave de API de OpenAI
-openai.api_key = 'tu-api-key-aqui'
+# openai.api_key = 'tu-api-key-aqui'
 
 # Función para obtener recomendaciones de filtros
 def obtener_recomendaciones(aptitudes):
