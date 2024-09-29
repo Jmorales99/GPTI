@@ -1,8 +1,13 @@
 from openai import OpenAI
+from dotenv import load_dotenv 
+import os
+
+load_dotenv()
+
 
 client = OpenAI(
-  api_key='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',
-  organization='org-6YfZIVXerkyghcLgH1KtbUb4',
+  api_key = os.getenv('API_KEY'),
+  organization = os.getenv('ORGANIZATION')
   # project='$PROJECT_ID',
 )
 
