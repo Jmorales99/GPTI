@@ -8,16 +8,16 @@ openai.api_key = os.getenv('API_KEY')
 
 def obtener_recomendaciones(aptitudes):
 
-    prompt = f"Dada la siguiente información del perfil de una persona, sugiere únicamente una lista de filtros de búsqueda para trabajos relevantes sin texto adicional:\n{aptitudes}"
+    prompt = f"Dada la siguiente información del perfil de una persona, sugiere únicamente una lista de 5 filtros de búsqueda para trabajos relevantes sin texto adicional:\n{aptitudes}"
 
     try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Eres un asistente que genera únicamente listas de filtros para búsqueda de trabajos."},
+                {"role": "system", "content": "Eres un asistente que genera una lista de filtros para búsqueda de trabajos. Estos 5 filtros deben ser lo más acotados y conscisos posibles."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=50, 
+            max_tokens=70, 
             temperature=0.5 
         )
 
@@ -28,11 +28,9 @@ def obtener_recomendaciones(aptitudes):
 
 aptitudes = """
 Nombre: Juan Pérez
-Habilidades: Python, Data Analysis, Machine Learning, SQL, Git
-Experiencia: 3 años en análisis de datos en empresas tecnológicas
-Intereses: Tecnologías de la información, desarrollo de software, análisis de datos
+Habilidades: Python, Data Anlysis, Machine Learning, SQL, Git
+Intereses: analisar datos para obtener resultados, trabajar en equipo, aprender nuevas tecnologías
 """
 
-# Obtener recomendaciones
 recomendaciones = obtener_recomendaciones(aptitudes)
 print("Recomendaciones de filtros:", recomendaciones)
