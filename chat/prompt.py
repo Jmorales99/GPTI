@@ -1,31 +1,31 @@
 import openai
+import os
+from dotenv import load_dotenv
 
-# Configura tu clave de API de OpenAI
-# openai.api_key = 'tu-api-key-aqui'
+load_dotenv()
+openai.api_key = os.getenv('API_KEY')
 
-# Función para obtener recomendaciones de filtros
+
 def obtener_recomendaciones(aptitudes):
-    # Crear el prompt basado en las aptitudes
-    prompt = f"Dada la siguiente información del perfil de una persona, sugiere filtros de búsqueda para trabajos relevantes:\n{aptitudes}"
+
+    prompt = f"Dada la siguiente información del perfil de una persona, sugiere únicamente una lista de filtros de búsqueda para trabajos relevantes sin texto adicional:\n{aptitudes}"
 
     try:
-        # Realizar la solicitud a la API de OpenAI
-        response = openai.Completion.create(
-            engine="text-davinci-003",  # Puedes usar "gpt-3.5-turbo" o "gpt-4" si tienes acceso
-            prompt=prompt,
-            max_tokens=150,  # Ajusta según el tamaño de la respuesta que esperas
-            n=1,  # Número de respuestas que deseas recibir
-            stop=None,  # Puedes especificar un token de parada si es necesario
-            temperature=0.7  # Controla la creatividad de la respuesta
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "Eres un asistente que genera únicamente listas de filtros para búsqueda de trabajos."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=50, 
+            temperature=0.5 
         )
-        
-        # Procesar y devolver la respuesta
-        return response.choices[0].text.strip()
+
+        return response['choices'][0]['message']['content'].strip()
 
     except Exception as e:
         return f"Error al comunicarse con la API: {str(e)}"
 
-# Datos del perfil de la persona (aptitudes)
 aptitudes = """
 Nombre: Juan Pérez
 Habilidades: Python, Data Analysis, Machine Learning, SQL, Git
