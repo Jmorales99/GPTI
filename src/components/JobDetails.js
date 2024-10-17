@@ -5,7 +5,6 @@ function JobDetails({ job, onBack }) {
   const [coverLetter, setCoverLetter] = useState('');
 
   const generateCoverLetter = () => {
-    // Generar la API de GPT para generar una carta real
     setCoverLetter(`Querido empleador, estoy muy interesado en el puesto de ${job.title}. Con mi experiencia en ${job.description}, estoy seguro de que soy el candidato ideal.`);
   };
 
