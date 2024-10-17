@@ -6,6 +6,21 @@ import AdBanner from './components/ads/AdBanner';
 function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [viewForm, setViewForm] = useState(false);
+  const [jobInfo, setJobInfo] = useState({
+    nombre: '',
+    habilidades: ['', '', '', '', ''],
+    experiencia: '',
+    intereses: ''
+  });
+
+  const opcionesExperiencia = [
+    { value: '0', label: 'Sin experiencia' },
+    { value: '1', label: '1 año' },
+    { value: '2', label: '2 años' },
+    { value: '3', label: '3 años' },
+    { value: '4', label: 'Más de 3 años' }
+  ];
 
   const handleSearch = () => {
     setSearchResults([
@@ -17,6 +32,27 @@ function App() {
   const handleViewDetails = (job) => {
     setSelectedJob(job); 
   };
+
+  const handleInputChange = (index, value) => {
+    const updatedSkills = [...jobInfo.habilidades];
+    updatedSkills[index] = value;
+    setJobInfo({ ...jobInfo, habilidades: updatedSkills });
+  };
+
+  const handleChange = (e) => {
+    setJobInfo({ ...jobInfo, [e.target.name]: e.target.value });
+  };
+
+const handleSubmit = () => {
+  console.log("handleSubmit fue llamado"); 
+  const jobDescription = `Nombre: ${jobInfo.nombre}
+  Habilidades: ${jobInfo.habilidades.filter(skill => skill.trim() !== '').join(', ')}
+  Experiencia: ${opcionesExperiencia.find(opt => opt.value === jobInfo.experiencia)?.label}
+  Intereses: ${jobInfo.intereses}`;
+  console.log("Enviando información al chat:", jobDescription);
+
+  setViewForm(false); 
+};
 
   return (
     <div className="app-container">
@@ -30,11 +66,6 @@ function App() {
             <h1>Encuentra tu trabajo ideal</h1>
           </header>
 
-          <section className="search-section">
-            <input type="text" placeholder="Buscar título del trabajo" className="input-field" />
-            <input type="text" placeholder="Ubicación" className="input-field" />
-            <button className="search-button" onClick={handleSearch}>Buscar</button>
-          </section>
           <AdBanner />
 
           <section className="job-list">
@@ -42,6 +73,57 @@ function App() {
               <JobItem key={job.id} job={job} onViewDetails={() => handleViewDetails(job)} />
             ))}
           </section>
+
+          <button className="search-button" onClick={() => setViewForm(!viewForm)}>
+            {viewForm ? 'Ocultar Formulario' : 'Añadir Detalles del Trabajo'}
+          </button>
+
+          {viewForm && (
+            <section className="search-section">
+              <input
+                type="text"
+                name="nombre"
+                placeholder="Nombre"
+                className="input-field"
+                value={jobInfo.nombre}
+                onChange={handleChange}
+              />
+
+              {jobInfo.habilidades.map((skill, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  placeholder={`Habilidad ${index + 1}`}
+                  className="input-field"
+                  value={skill}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                />
+              ))}
+
+              <select
+                name="experiencia"
+                className="input-field"
+                value={jobInfo.experiencia}
+                onChange={handleChange}
+              >
+                <option value="">Selecciona la experiencia</option>
+                {opcionesExperiencia.map(opt => (
+                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                ))}
+              </select>
+
+              <input
+                type="text"
+                name="intereses"
+                placeholder="Intereses"
+                className="input-field"
+                value={jobInfo.intereses}
+                onChange={handleChange}
+              />
+
+              <button className="search-button" onClick={handleSubmit}>Enviar Datos</button>
+            </section>
+          )}
         </>
       )}
     </div>
