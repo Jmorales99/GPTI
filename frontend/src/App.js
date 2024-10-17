@@ -7,6 +7,7 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [viewForm, setViewForm] = useState(false);
+  const [recommendations, setRecommendations] = useState([]); 
   const [jobInfo, setJobInfo] = useState({
     nombre: '',
     habilidades: ['', '', '', '', ''],
@@ -66,7 +67,10 @@ function App() {
       }
   
       const data = await response.json();
-      console.log("Recomendaciones recibidas:", data.recomendaciones);
+      console.log("Datos recibidos del servidor:", data); 
+
+      const receivedRecommendations = data.recomendaciones.split('\n').map(item => item.trim());
+      setRecommendations(receivedRecommendations); 
   
     } catch (error) {
       console.error("Error al enviar datos al backend:", error);
@@ -74,7 +78,13 @@ function App() {
   
     setViewForm(false); 
   };
-  
+
+  const handleToggleForm = () => {
+    setViewForm(!viewForm);
+    if (!viewForm) {
+      setRecommendations([]);  
+    }
+  };
 
   return (
     <div className="app-container">
@@ -96,7 +106,7 @@ function App() {
             ))}
           </section>
 
-          <button className="search-button" onClick={() => setViewForm(!viewForm)}>
+          <button className="search-button" onClick={handleToggleForm}>
             {viewForm ? 'Ocultar Formulario' : 'Añadir Detalles del Trabajo'}
           </button>
 
@@ -144,6 +154,19 @@ function App() {
               />
 
               <button className="search-button" onClick={handleSubmit}>Enviar Datos</button>
+            </section>
+          )}
+
+          {recommendations.length > 0 && (
+            <section className="recommendations-section">
+              <h2>Recomendaciones basadas en tu perfil:</h2>
+              <div className="recommendations-list">
+                {recommendations.map((rec, index) => (
+                  <div key={index} className="recommendation-card">
+                    <p>{rec}</p>
+                  </div>
+                ))}
+              </div>
             </section>
           )}
         </>
