@@ -1,10 +1,8 @@
-// importamos función scrape
-const scrape = require('./scraping/script');
 
 const Router = require('koa-router');
+const router = new Router();
 
-const router = new Router();// instanciar router
-// definir como ordeno el login
+const { Job } = require('./models');
 
 router.get('/', async (ctx) => {
   ctx.response.body = 'Bienvenido';
@@ -15,17 +13,33 @@ router.get('/test', async (ctx) => {
   };
 });
 
-router.get('/scrape', async (ctx) => {
-  try{
-    const url = 'https://www.chiletrabajos.cl/encuentra-un-empleo';
-    const jobs = await scrape(url);
-    ctx.response.body = jobs;
-  }
-  catch(error){
+router.post('/jobs', async (ctx) => {
+  try {
+    const { category, jobs } = ctx.request.body;
+    console.log(`Received ${jobs.length} jobs for category ${category}`);
+    ctx.response.body = {
+      message: 'Jobs received',
+    };
+    jobs.forEach(async (job) => {
+      try {
+        const [newJob, created] = await Job.findOrCreate({
+          where: { link: job.link },
+          defaults: job,
+        });
+        if (!created) {
+          await Job.update(job, {
+            where: { link: job.link },
+          });
+        }
+      } catch (error) {
+        console.error(`Error adding job to the database: ${error.message}`);
+      }
+    });
+  } catch (error) {
     ctx.response.status = 500;
     ctx.response.body = {
       message: error.message,
-      error: 'Error during scraping',
+      error: 'Error receiving jobs',
     };
   }
 });
