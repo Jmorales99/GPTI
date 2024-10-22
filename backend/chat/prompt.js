@@ -7,8 +7,16 @@ const openai = new OpenAI({
   apiKey: process.env.API_KEY,
 });
 
-async function obtener_recomendaciones(aptitudes) {
-  const prompt = `Dada la siguiente información del perfil de una persona, sugiere únicamente una lista de 5 filtros de búsqueda para trabajos relevantes sin texto adicional:\n${aptitudes}`;
+async function generarCartaPresentacion(datos) {
+  const prompt = `Genera una carta de presentación utilizando la siguiente información del candidato. La carta debe tener un máximo de 15 líneas:\n\n` +
+    `Nombre: ${datos.nombre}\n` +
+    `Teléfono: ${datos.telefono}\n` +
+    `Correo: ${datos.correo}\n` +
+    `Habilidades: ${datos.habilidades.join(', ')}\n` +
+    `Experiencia: ${datos.experiencia}\n` +
+    `Intereses: ${datos.intereses}\n` +
+    `Motivación: ${datos.porque}\n\n` +
+    `Escribe una carta de presentación concisa y profesional.`;
 
   try {
     const response = await openai.chat.completions.create({
@@ -16,14 +24,14 @@ async function obtener_recomendaciones(aptitudes) {
       messages: [
         {
           role: 'system',
-          content: 'Eres un asistente que genera una lista de filtros para búsqueda de trabajos. Estos 5 filtros deben ser lo más acotados y concisos posibles.'
+          content: 'Eres un asistente que genera cartas de presentación para postulaciones laborales. La carta debe ser concisa, profesional y no exceder las 15 líneas.'
         },
         {
           role: 'user',
           content: prompt
         }
       ],
-      max_tokens: 70,
+      max_tokens: 150,
       temperature: 0.5,
     });
 
@@ -34,5 +42,5 @@ async function obtener_recomendaciones(aptitudes) {
 }
 
 module.exports = {
-  obtener_recomendaciones,
+  generarCartaPresentacion,
 };

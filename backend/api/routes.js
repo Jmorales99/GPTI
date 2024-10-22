@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const { obtener_recomendaciones } = require('../chat/prompt');
+const { generarCartaPresentacion } = require('../chat/prompt');
 const router = new Router();// instanciar router
 // definir como ordeno el login
 
@@ -12,12 +12,22 @@ router.get('/test', async (ctx) => {
   };
 });
 router.post('/recomendaciones', async (ctx) => {
-  const { aptitudes } = ctx.request.body;
-  console.log(aptitudes);
-  const recomendaciones = await obtener_recomendaciones(aptitudes);
-  console.log(recomendaciones);
+  const { nombre, telefono, correo, habilidades, experiencia, intereses, porque } = ctx.request.body;
+  console.log({ nombre, telefono, correo, habilidades, experiencia, intereses, porque });
+  const datosCandidato = {
+    nombre,
+    telefono,
+    correo,
+    habilidades,
+    experiencia,
+    intereses,
+    porque,
+  };
+
+  const carta = await generarCartaPresentacion(datosCandidato);
+  console.log(carta);
   ctx.response.body = {
-    recomendaciones,
+    carta,
   };
 });
 module.exports = router;

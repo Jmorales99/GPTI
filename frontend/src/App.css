@@ -1,97 +1,150 @@
-.app-container {
+/* Estilos globales */
+body {
+  margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
-  padding: 20px;
-  text-align: center;
+  color: #333;
 }
 
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilos para la barra de navegación */
 .navbar {
-  background-color: #00aaff;
+  background-color: #4a90e2;
+  color: white;
   padding: 15px;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar-brand {
-  font-size: 1.5rem;
-  color: white;
+  font-size: 24px;
   font-weight: bold;
-  padding-left: 20px;
+}
+
+/* Encabezado */
+.app-header {
+  text-align: center;
+  margin: 20px 0;
 }
 
 .app-header h1 {
-  color: #333;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  font-size: 32px;
+  color: #4a90e2;
 }
 
-.search-section {
+/* Estilos para el anuncio */
+.ad-banner {
+  margin: 20px 0;
+}
+
+/* Lista de categorías */
+.category-list {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
-.input-field {
-  padding: 15px;
-  width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.search-button {
-  padding: 15px 30px;
-  background-color: #00aaff;
+.category-button {
+  background-color: #4a90e2;
   color: white;
   border: none;
+  padding: 10px 20px;
+  margin: 5px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
+.category-button:hover {
+  background-color: #357ab8;
+}
+
+/* Lista de trabajos */
 .job-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
 .job-item {
-  background-color: #fff;
-  border-radius: 8px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.job-item:hover {
+  transform: translateY(-3px);
+}
+
+/* Detalles del trabajo */
+.job-details {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.job-item h2 {
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.job-item p {
-  font-size: 1rem;
-  color: #555;
-}
-
-.job-item button {
-  background-color: #00aaff;
+.job-details button {
+  background-color: #4a90e2;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.job-details button:hover {
+  background-color: #357ab8;
+}
+
+/* Sección de búsqueda */
+.search-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.recommendations-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.search-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+/* Sección de carta de presentación */
+.cover-letter {
   margin-top: 20px;
 }
 
-.recommendation-card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
+.cover-letter-box {
+  border: 1px solid #ddd;
+  border-radius: 5px;
   padding: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  background-color: #f9f9f9;
 }
