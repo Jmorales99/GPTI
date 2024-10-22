@@ -79,3 +79,39 @@
   cursor: pointer;
   border-radius: 5px;
 }
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.recommendation-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.category-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px; /* Esto añade separación entre botones */
+  transition: background-color 0.3s ease;
+}
+
+.category-button:hover {
+  background-color: #0056b3;
+}
+
+.job-item button, .category-button {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
