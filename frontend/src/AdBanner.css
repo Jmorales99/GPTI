@@ -1,0 +1,63 @@
+/* AdBanner.css */
+.ad-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ad-banner-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .ad-content {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+  }
+  
+  .ad-image {
+    width: 80px;
+    height: auto;
+    margin-right: 15px;
+    border-radius: 5px;
+  }
+  
+  .ad-info {
+    flex-grow: 1;
+  }
+  
+  .ad-title {
+    font-size: 16px;
+    margin: 0;
+    color: #333;
+  }
+  
+  .ad-views {
+    font-size: 12px;
+    margin: 2px 0;
+    color: #666;
+  }
+  
+  .ad-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+  }
+  
+  .ad-button:hover {
+    background-color: #357ab8;
+  }
+  

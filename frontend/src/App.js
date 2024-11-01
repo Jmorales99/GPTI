@@ -1,6 +1,7 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import AdBanner from './components/ads/AdBanner';
+import AdBanner from './AdBanner';
 import archivoJson from './trabajos.json';
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
-  const [coverLetter, setCoverLetter] = useState(''); 
+  const [coverLetter, setCoverLetter] = useState('');
   const [jobInfo, setJobInfo] = useState({
     nombre: '',
     telefono: '',
@@ -67,7 +68,6 @@ function App() {
       }
   
       const data = await response.json();
-      // Almacenar la respuesta como la carta de presentación generada
       const generatedCoverLetter = data.carta || 'No se generó una carta de presentación';
       setCoverLetter(generatedCoverLetter);
 
@@ -79,6 +79,10 @@ function App() {
   return (
     <div className="app-container">
       <Navbar />
+
+      {/* Left and Right ad banners */}
+      <AdBanner position="left" />
+      <AdBanner position="right" />
 
       {selectedJob ? (
         <JobDetails 
@@ -96,8 +100,6 @@ function App() {
           <header className="app-header">
             <h1>Encuentra tu trabajo ideal</h1>
           </header>
-
-          <AdBanner />
 
           <section className="category-list">
             {categories.map((category, index) => (
@@ -120,9 +122,18 @@ function App() {
           )}
         </>
       )}
+
+      {/* Bottom ad banner */}
+      <AdBanner position="bottom" />
     </div>
   );
 }
+
+const Navbar = () => (
+  <nav className="navbar">
+    <div className="navbar-brand">GPTJOB</div>
+  </nav>
+);
 
 const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, opcionesExperiencia, coverLetter }) => (
   <div className="job-details">
@@ -212,12 +223,6 @@ const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, o
       </section>
     )}
   </div>
-);
-
-const Navbar = () => (
-  <nav className="navbar">
-    <div className="navbar-brand">GPTJOB</div>
-  </nav>
 );
 
 const JobItem = ({ job, onViewDetails }) => (

@@ -148,3 +148,97 @@ body {
   padding: 15px;
   background-color: #f9f9f9;
 }
+
+.ad-banner {
+  text-align: center;
+  padding: 10px;
+}
+
+.ad-banner-left {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ad-banner-right {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ad-banner-bottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+  }
+
+  .category-list {
+    flex-direction: column;
+  }
+
+  .job-list {
+    grid-template-columns: 1fr;
+  }
+
+  .ad-banner-left, .ad-banner-right {
+    display: none;
+  }
+
+  .job-details {
+    padding: 15px;
+  }
+
+  .input-field, .search-button, .job-details button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 18px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+  }
+
+  .category-button {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  .search-section {
+    margin-top: 10px;
+  }
+
+  .input-field {
+    font-size: 12px;
+  }
+
+  .job-details button, .search-button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .cover-letter-box {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
