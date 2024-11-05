@@ -9,8 +9,9 @@ const PORT = 3000;
 
 orm.sequelize
   .authenticate()
-  .then(() => {
+  .then(async () => {
     console.log('Connection to the database has been established successfully.');
+    await orm.sequelize.sync();
     app.listen(PORT, (err) => {
       if (err) {
         return console.error('Failed', err);
