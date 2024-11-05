@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       company: {
         type: DataTypes.STRING,
-        allowNull: false,
+
       },
       city: {
         type: DataTypes.STRING,
-        allowNull: false,
+
       },
       date: {
         type: DataTypes.STRING,
@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      link: {
+        type: DataTypes.TEXT,
+
       },
     });
   

@@ -14,6 +14,13 @@ router.get('/test', async (ctx) => {
     message: 'Hello World!',
   };
 });
+router.get("/jobs" async (ctx) => {
+  ctx.request.body.data.array.forEach(job => {
+    ctx.orm.Job.create({
+      
+    })
+  });
+})
 
 router.get('/scrape', async (ctx) => {
   try{

@@ -16,7 +16,7 @@ for category in categories:
         jobs = soup.find_all('div', class_='job-item with-thumb destacado no-hover')
         
         while next_page_url != None:
-            print(next_page_url)
+            print("Scrappeando vista: " + next_page_url['href'])
             jobs_data = []
             for job in jobs:
                 job_section = job.find('h2').find('a')
@@ -61,11 +61,11 @@ for category in categories:
                     "city":city
                 }
                 jobs_data.append(job_json)
-            # print(jobs_data)
             data = {
                 "category":category,
                 "jobs": jobs_data
             }
+            print(data)
             ### ACÁ AGREGAR ENDPOINT PARA GUARDAR EN LA DB
             # endpoint_url= ""
             # requests.post(endpoint_url,data=data)
