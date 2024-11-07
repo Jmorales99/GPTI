@@ -216,11 +216,13 @@ const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, o
 
     {coverLetter && (
       <section className="cover-letter">
-        <h3>Carta de Presentación Generada:</h3>
-        <div className="cover-letter-box">
-          <p>{coverLetter}</p>
-        </div>
-      </section>
+      <h3>Carta de Presentación Generada:</h3>
+      <div className="cover-letter-box">
+        {coverLetter.split('\n').map((line, index) => (
+          <p key={index}>{line}</p>
+        ))}
+      </div>
+    </section>
     )}
   </div>
 );

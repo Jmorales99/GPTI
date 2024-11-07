@@ -8,7 +8,7 @@ const openai = new OpenAI({
 });
 
 async function generarCartaPresentacion(datos) {
-  const prompt = `Genera una carta de presentación utilizando la siguiente información del candidato. La carta debe tener un máximo de 15 líneas:\n\n` +
+  const prompt = `Genera una carta de presentación utilizando la siguiente información del candidato. La carta debe seguir el metodo de PCP:\n\n` +
     `Nombre: ${datos.nombre}\n` +
     `Teléfono: ${datos.telefono}\n` +
     `Correo: ${datos.correo}\n` +
@@ -24,14 +24,14 @@ async function generarCartaPresentacion(datos) {
       messages: [
         {
           role: 'system',
-          content: 'Eres un asistente que genera cartas de presentación para postulaciones laborales. La carta debe ser concisa, profesional y no exceder las 15 líneas.'
+          content: 'Eres un asistente que genera cartas de presentación para postulaciones laborales. La carta debe ser concisa, profesional y no exceder las 15 líneas siguiendo el metodo de PCP con los salto de lineas correspondientes.'
         },
         {
           role: 'user',
           content: prompt
         }
       ],
-      max_tokens: 150,
+      max_tokens: 300,
       temperature: 0.5,
     });
 
