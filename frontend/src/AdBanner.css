@@ -1,4 +1,3 @@
-/* AdBanner.css */
 .ad-banner {
     display: flex;
     align-items: center;
@@ -9,46 +8,47 @@
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     margin-left: 2.5%;
     margin-right: 2.5%;
-  }
-  
-  .ad-banner-bottom {
+    position: relative; 
+}
+
+.ad-banner-bottom {
     position: fixed;
     bottom: 0;
     width: 100%;
-  }
-  
-  .ad-content {
+}
+
+.ad-content {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: inherit;
     flex-grow: 1;
-  }
-  
-  .ad-image {
+}
+
+.ad-image {
     width: 80px;
     height: auto;
     margin-right: 15px;
     border-radius: 5px;
-  }
-  
-  .ad-info {
+}
+
+.ad-info {
     flex-grow: 1;
-  }
-  
-  .ad-title {
+}
+
+.ad-title {
     font-size: 16px;
     margin: 0;
     color: #333;
-  }
-  
-  .ad-views {
+}
+
+.ad-views {
     font-size: 12px;
     margin: 2px 0;
     color: #666;
-  }
-  
-  .ad-button {
+}
+
+.ad-button {
     background-color: #4a90e2;
     color: white;
     border: none;
@@ -57,9 +57,26 @@
     font-size: 14px;
     border-radius: 3px;
     transition: background-color 0.3s;
-  }
-  
-  .ad-button:hover {
+}
+
+.ad-button:hover {
     background-color: #357ab8;
-  }
-  
+}
+
+/* Estilo para el botón de cierre ("X") */
+.close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: #999;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: #333;
+}
