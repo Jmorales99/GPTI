@@ -33,7 +33,6 @@ function App() {
     { value: '4', label: 'Más de 3 años' }
   ];
 
-  // Fetch categories from backend
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -50,21 +49,19 @@ function App() {
     fetchCategories();
   }, []);
 
-  // Fetch jobs from backend with pagination
   const fetchJobs = async (page = 1) => {
     try {
       const response = await fetch(`http://localhost:3000/jobs?page=${page}`);
       if (!response.ok) throw new Error('Error al obtener trabajos desde el servidor');
       
       const data = await response.json();
-      setFilteredJobs(data.jobs);  // Set jobs for current page
-      setPagination(data.pagination);  // Update pagination data from backend response
+      setFilteredJobs(data.jobs); 
+      setPagination(data.pagination);  
     } catch (error) {
       console.error("Error al obtener trabajos:", error);
     }
   };
 
-  // Fetch jobs for the current page whenever pagination changes
   useEffect(() => {
     fetchJobs(pagination.currentPage);
   }, [pagination.currentPage]);
@@ -72,7 +69,7 @@ function App() {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setPagination({ ...pagination, currentPage: 1 });
-    fetchJobs(1); // Fetch jobs for the selected category starting at page 1
+    fetchJobs(1); 
   };
 
   const handleViewDetails = (job) => {
@@ -126,7 +123,6 @@ function App() {
     <div className="app-container">
       <Navbar />
 
-      {/* Left and Right ad banners */}
       <AdBanner position="left" />
       <AdBanner position="right" />
 
