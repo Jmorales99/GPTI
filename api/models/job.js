@@ -1,32 +1,28 @@
-// models/job.js
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const Job = sequelize.define('Job', {
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      company: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      city: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      date: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      link: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      category: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    });
-
-    return Job;
-  };
+  class Job extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  Job.init({
+    title: DataTypes.STRING,
+    company: DataTypes.STRING,
+    city: DataTypes.STRING,
+    link: DataTypes.STRING,
+    category: DataTypes.STRING,
+    description: DataTypes.TEXT
+  }, {
+    sequelize,
+    modelName: 'Job',
+  });
+  return Job;
+};
