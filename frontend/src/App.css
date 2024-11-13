@@ -149,10 +149,31 @@ body {
   background-color: #f9f9f9;
 }
 
-.ad-banner {
-  text-align: center;
-  padding: 10px;
+.ad-banner-row {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 50%;
+  margin-right: 10%;
 }
+
+/* Cada banner ocupará una tercera parte del espacio */
+.ad-banner {
+  width: 33.33%; /* Dividir en tres columnas iguales */
+  text-align: center;
+  padding: 0 10px; /* Espacio entre banners */
+}
+
+.ad-banner img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
 
 .ad-banner-left {
   position: fixed;
@@ -168,11 +189,14 @@ body {
   transform: translateY(-50%);
 }
 
+/* Estilos para el banner de anuncios en la parte inferior */
 .ad-banner-bottom {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
+
 
 /* Responsive Styles */
 @media (max-width: 768px) {
@@ -242,3 +266,16 @@ body {
     padding: 10px;
   }
 }
+
+@media (max-width: 768px) {
+  .ad-banner-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ad-banner {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+}
+

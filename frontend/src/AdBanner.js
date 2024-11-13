@@ -3,11 +3,11 @@ import React from 'react';
 import adsData from './adsData';
 import './AdBanner.css';
 
-const AdBanner = ({ position }) => {
+const AdBanner = () => {
   const randomAd = adsData[Math.floor(Math.random() * adsData.length)];
 
   return (
-    <div className={`ad-banner ad-banner-${position}`}>
+    <div className="ad-banner">
       <a href={randomAd.link} target="_blank" rel="noopener noreferrer" className="ad-content">
         <img src={randomAd.imageUrl} alt={randomAd.title} className="ad-image" />
         <div className="ad-info">

@@ -123,16 +123,13 @@ function App() {
     <div className="app-container">
       <Navbar />
 
-      <AdBanner position="left" />
-      <AdBanner position="right" />
-
       {selectedJob ? (
-        <JobDetails 
-          job={selectedJob} 
-          onBack={() => setSelectedJob(null)} 
-          jobInfo={jobInfo} 
-          onInputChange={handleInputChange} 
-          onChange={handleChange} 
+        <JobDetails
+          job={selectedJob}
+          onBack={() => setSelectedJob(null)}
+          jobInfo={jobInfo}
+          onInputChange={handleInputChange}
+          onChange={handleChange}
           onSubmit={handleSubmit}
           opcionesExperiencia={opcionesExperiencia}
           coverLetter={coverLetter}
@@ -145,9 +142,9 @@ function App() {
 
           <section className="category-list">
             {categories.map((category, index) => (
-              <button 
-                key={index} 
-                onClick={() => handleCategoryClick(category)} 
+              <button
+                key={index}
+                onClick={() => handleCategoryClick(category)}
                 className="category-button"
               >
                 {category.category}
@@ -161,17 +158,25 @@ function App() {
                 <JobItem key={job.id} job={job} onViewDetails={() => handleViewDetails(job)} />
               ))}
               <div className="pagination-controls">
-                <button onClick={handlePrevPage} disabled={pagination.currentPage === 1}>Anterior</button>
+                <button onClick={handlePrevPage} disabled={pagination.currentPage === 1}>
+                  Anterior
+                </button>
                 <span>Página {pagination.currentPage} de {pagination.totalPages}</span>
-                <button onClick={handleNextPage} disabled={pagination.currentPage === pagination.totalPages}>Siguiente</button>
+                <button onClick={handleNextPage} disabled={pagination.currentPage === pagination.totalPages}>
+                  Siguiente
+                </button>
               </div>
             </section>
           )}
         </>
       )}
 
-      {/* Bottom ad banner */}
-      <AdBanner position="bottom" />
+      {/* Fila de banners en la parte inferior */}
+      <div className="ad-banner-row">
+        <AdBanner position="bottom" />
+        <AdBanner position="bottom" />
+        <AdBanner position="bottom" />
+      </div>
     </div>
   );
 }
