@@ -1,8 +1,6 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import AdBanner from './AdBanner';
-import archivoJson from './trabajos.json';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -20,6 +18,13 @@ function App() {
     porque: ''
   });
 
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    pageSize: 5,
+    totalJobs: 0,
+  });
+
   const opcionesExperiencia = [
     { value: '0', label: 'Sin experiencia' },
     { value: '1', label: '1 año' },
@@ -28,13 +33,46 @@ function App() {
     { value: '4', label: 'Más de 3 años' }
   ];
 
+  // Fetch categories from backend
   useEffect(() => {
-    setCategories(archivoJson.categories);
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/categories');
+        if (!response.ok) throw new Error('Error al obtener categorías desde el servidor');
+        
+        const categoriesData = await response.json();
+        setCategories(categoriesData.map(category => ({ category, jobs: [] })));
+      } catch (error) {
+        console.error("Error al obtener categorías:", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
-  
+
+  // Fetch jobs from backend with pagination
+  const fetchJobs = async (page = 1) => {
+    try {
+      const response = await fetch(`http://localhost:3000/jobs?page=${page}`);
+      if (!response.ok) throw new Error('Error al obtener trabajos desde el servidor');
+      
+      const data = await response.json();
+      setFilteredJobs(data.jobs);  // Set jobs for current page
+      setPagination(data.pagination);  // Update pagination data from backend response
+    } catch (error) {
+      console.error("Error al obtener trabajos:", error);
+    }
+  };
+
+  // Fetch jobs for the current page whenever pagination changes
+  useEffect(() => {
+    fetchJobs(pagination.currentPage);
+  }, [pagination.currentPage]);
+
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    setFilteredJobs(category.jobs);
+    setPagination({ ...pagination, currentPage: 1 });
+    fetchJobs(1); // Fetch jobs for the selected category starting at page 1
   };
 
   const handleViewDetails = (job) => {
@@ -63,19 +101,27 @@ function App() {
         body: JSON.stringify(jobInfo),
       });
 
-      if (!response.ok) {
-        throw new Error('Error en la respuesta del servidor');
-      }
-  
+      if (!response.ok) throw new Error('Error en la respuesta del servidor');
+      
       const data = await response.json();
-      const generatedCoverLetter = data.carta || 'No se generó una carta de presentación';
-      setCoverLetter(generatedCoverLetter);
-
+      setCoverLetter(data.carta || 'No se generó una carta de presentación');
     } catch (error) {
       console.error("Error al enviar datos al backend:", error);
     }
   };
-  
+
+  const handleNextPage = () => {
+    if (pagination.currentPage < pagination.totalPages) {
+      setPagination((prev) => ({ ...prev, currentPage: prev.currentPage + 1 }));
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (pagination.currentPage > 1) {
+      setPagination((prev) => ({ ...prev, currentPage: prev.currentPage - 1 }));
+    }
+  };
+
   return (
     <div className="app-container">
       <Navbar />
@@ -118,6 +164,11 @@ function App() {
               {filteredJobs.map((job) => (
                 <JobItem key={job.id} job={job} onViewDetails={() => handleViewDetails(job)} />
               ))}
+              <div className="pagination-controls">
+                <button onClick={handlePrevPage} disabled={pagination.currentPage === 1}>Anterior</button>
+                <span>Página {pagination.currentPage} de {pagination.totalPages}</span>
+                <button onClick={handleNextPage} disabled={pagination.currentPage === pagination.totalPages}>Siguiente</button>
+              </div>
             </section>
           )}
         </>
@@ -139,77 +190,27 @@ const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, o
   <div className="job-details">
     <button onClick={onBack}>Volver</button>
     <h2>{job.title}</h2>
-    <p>{job.location}</p>
+    <p>{job.city}</p>
     <p>{job.description}</p>
 
     <section className="search-section">
-      <input
-        type="text"
-        name="nombre"
-        placeholder="Nombre"
-        className="input-field"
-        value={jobInfo.nombre}
-        onChange={onChange}
-      />
-
-      <input
-        type="text"
-        name="telefono"
-        placeholder="Teléfono"
-        className="input-field"
-        value={jobInfo.telefono}
-        onChange={onChange}
-      />
-
-      <input
-        type="text"
-        name="correo"
-        placeholder="Correo Electrónico"
-        className="input-field"
-        value={jobInfo.correo}
-        onChange={onChange}
-      />
-
+      <input type="text" name="nombre" placeholder="Nombre" className="input-field" value={jobInfo.nombre} onChange={onChange} />
+      <input type="text" name="telefono" placeholder="Teléfono" className="input-field" value={jobInfo.telefono} onChange={onChange} />
+      <input type="text" name="correo" placeholder="Correo Electrónico" className="input-field" value={jobInfo.correo} onChange={onChange} />
+      
       {jobInfo.habilidades.map((skill, index) => (
-        <input
-          key={index}
-          type="text"
-          placeholder={`Habilidad ${index + 1}`}
-          className="input-field"
-          value={skill}
-          onChange={(e) => onInputChange(index, e.target.value)}
-        />
+        <input key={index} type="text" placeholder={`Habilidad ${index + 1}`} className="input-field" value={skill} onChange={(e) => onInputChange(index, e.target.value)} />
       ))}
 
-      <select
-        name="experiencia"
-        className="input-field"
-        value={jobInfo.experiencia}
-        onChange={onChange}
-      >
+      <select name="experiencia" className="input-field" value={jobInfo.experiencia} onChange={onChange}>
         <option value="">Selecciona la experiencia</option>
         {opcionesExperiencia.map(opt => (
           <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
       </select>
 
-      <input
-        type="text"
-        name="intereses"
-        placeholder="Intereses"
-        className="input-field"
-        value={jobInfo.intereses}
-        onChange={onChange}
-      />
-
-      <input
-        type="text"
-        name="porque"
-        placeholder="¿Por qué quieres trabajar con nosotros?"
-        className="input-field"
-        value={jobInfo.porque}
-        onChange={onChange}
-      />
+      <input type="text" name="intereses" placeholder="Intereses" className="input-field" value={jobInfo.intereses} onChange={onChange} />
+      <input type="text" name="porque" placeholder="¿Por qué quieres trabajar con nosotros?" className="input-field" value={jobInfo.porque} onChange={onChange} />
 
       <button className="search-button" onClick={onSubmit}>Generar Carta de Presentación</button>
     </section>
@@ -228,7 +229,7 @@ const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, o
 const JobItem = ({ job, onViewDetails }) => (
   <div className="job-item">
     <h2>{job.title}</h2>
-    <p>{job.location}</p>
+    <p>{job.city}</p>
     <button onClick={onViewDetails}>Abrir Detalles</button>
   </div>
 );
