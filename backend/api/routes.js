@@ -12,8 +12,8 @@ router.get('/test', async (ctx) => {
   };
 });
 router.post('/recomendaciones', async (ctx) => {
-  const { nombre, telefono, correo, habilidades, experiencia, intereses, porque } = ctx.request.body;
-  console.log({ nombre, telefono, correo, habilidades, experiencia, intereses, porque });
+  const { nombre, telefono, correo, habilidades, experiencia, intereses, porque, oferta } = ctx.request.body;
+  console.log({ nombre, telefono, correo, habilidades, experiencia, intereses, porque, oferta });
   const datosCandidato = {
     nombre,
     telefono,
@@ -22,6 +22,7 @@ router.post('/recomendaciones', async (ctx) => {
     experiencia,
     intereses,
     porque,
+    oferta,
   };
 
   const carta = await generarCartaPresentacion(datosCandidato);

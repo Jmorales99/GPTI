@@ -15,7 +15,8 @@ function App() {
     habilidades: ['', '', '', '', ''],
     experiencia: '',
     intereses: '',
-    porque: ''
+    porque: '',
+    oferta: '',
   });
 
   const [pagination, setPagination] = useState({
@@ -75,6 +76,15 @@ function App() {
   const handleViewDetails = (job) => {
     setSelectedJob(job);
     setCoverLetter('');
+    setJobInfo({
+      nombre: '',
+      telefono: '',
+      correo: '',
+      habilidades: ['', '', '', '', ''],
+      experiencia: '',
+      intereses: '',
+      porque: '',
+    });
   };
 
   const handleInputChange = (index, value) => {
@@ -89,23 +99,56 @@ function App() {
   };
 
   const handleSubmit = async () => {
+    // Información del usuario que va a acompañar la oferta
+    const userData = {
+      nombre: jobInfo.nombre,        // Nombre del usuario
+      telefono: jobInfo.telefono,    // Teléfono del usuario
+      correo: jobInfo.correo,        // Correo del usuario
+      habilidades: jobInfo.habilidades,  // Habilidades del usuario
+      experiencia: jobInfo.experiencia, // Experiencia del usuario
+      intereses: jobInfo.intereses,   // Intereses del usuario
+      porque: jobInfo.porque,         // Motivación del usuario para el puesto
+      oferta: selectedJob.description,        // Descripción del trabajo que viene del trabajo seleccionado
+    };
+    console.log(userData);
+  
     try {
-      const response = await fetch('http://localhost:3000/recomendaciones', {
+      const response = await fetch('http://localhost:3001/recomendaciones', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(jobInfo),
+        body: JSON.stringify(userData), // Enviar los datos del usuario junto con la oferta de trabajo
       });
-
+  
       if (!response.ok) throw new Error('Error en la respuesta del servidor');
-      
+  
       const data = await response.json();
       setCoverLetter(data.carta || 'No se generó una carta de presentación');
     } catch (error) {
       console.error("Error al enviar datos al backend:", error);
     }
   };
+  
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:3001/recomendaciones', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(jobInfo),
+  //     });
+
+  //     if (!response.ok) throw new Error('Error en la respuesta del servidor');
+      
+  //     const data = await response.json();
+  //     setCoverLetter(data.carta || 'No se generó una carta de presentación');
+  //   } catch (error) {
+  //     console.error("Error al enviar datos al backend:", error);
+  //   }
+  // };
 
   const handleNextPage = () => {
     if (pagination.currentPage < pagination.totalPages) {
