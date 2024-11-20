@@ -1,21 +1,30 @@
-.ad-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #f8f8f8;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    position: relative; 
-}
+.ad-banner-bottom {
+    position: fixed; /* Fija la posición en la parte inferior */
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho */
+    background-color: #fff; /* Fondo blanco */
+    border-top: 1px solid #ddd; /* Línea superior */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra superior */
+    z-index: 100; /* Asegura que esté por encima de otros elementos */
+    text-align: center;
+    display: flex; /* Organiza los banners en una fila */
+    justify-content: center; /* Centra los banners */
+    padding: 15px 0;
+  }
 
 .ad-banner-bottom {
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
-}
+    background-color: #f8f8f8;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 10;
+    padding: 15px 0;
+  }
 
 .ad-content {
     display: flex;

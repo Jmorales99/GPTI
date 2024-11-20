@@ -200,7 +200,9 @@ function App() {
               {filteredJobs.map((job) => (
                 <JobItem key={job.id} job={job} onViewDetails={() => handleViewDetails(job)} />
               ))}
-              <div className="pagination-controls">
+
+            <section className="job-list">
+            <div className="pagination-controls">
                 <button onClick={handlePrevPage} disabled={pagination.currentPage === 1}>
                   Anterior
                 </button>
@@ -210,16 +212,18 @@ function App() {
                 </button>
               </div>
             </section>
+            </section>
           )}
         </>
       )}
-
-      {/* Fila de banners en la parte inferior */}
+      <Footer />
+      {/* Fila de banners en la parte inferior 
       <div className="ad-banner-row">
         <AdBanner position="bottom" />
         <AdBanner position="bottom" />
         <AdBanner position="bottom" />
       </div>
+      */}
     </div>
   );
 }
@@ -229,7 +233,13 @@ const Navbar = () => (
     <div className="navbar-brand">GPTJOB</div>
   </nav>
 );
-
+const Footer = () => (
+  <nav className="footer">
+        <AdBanner position="bottom" />
+        <AdBanner position="bottom" />
+        <AdBanner position="bottom" />
+  </nav>
+);
 const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, opcionesExperiencia, coverLetter }) => (
   <div className="job-details">
     <button onClick={onBack}>Volver</button>
