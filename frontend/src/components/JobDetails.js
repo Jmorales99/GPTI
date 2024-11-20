@@ -1,43 +1,196 @@
 import React from 'react';
+import './JobDetails.css';
 
-const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, opcionesExperiencia, coverLetter }) => (
-  <div className="job-details">
-    <button onClick={onBack}>Volver</button>
-    <h2>{job.title}</h2>
-    <p>{job.city}</p>
-    <p>{job.description}</p>
+const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, opcionesExperiencia, coverLetter }) => {
+  // Función para dividir la descripción en secciones
+  const parseDescription = (description) => {
+    const sections = {};
+    const keys = [
+      "Objetivo del cargo",
+      "Requisitos",
+      "Funciones",
+      "Beneficios",
+      "Jornada laboral",
+      "Instrucciones"
+    ];
+  
+    const requisitosKeywords = [
+      "Manejo de", "Experiencia en", "Conocimiento en", "Habilidad para", "Capacidad de",
+      "Ser", "Tener", "Puntualidad", "Responsabilidad", "Excel", "Atención telefónica",
+      "Planificación", "Caja chica", "Proactividad"
+    ];
+  
+    let currentKey = "General";
+  
+    description.split("\n").forEach((line) => {
+      const trimmedLine = line.trim();
+      if (!trimmedLine) return; // Ignorar líneas vacías
+  
+      const matchedKey = keys.find((key) => trimmedLine.startsWith(`${key}:`));
+      const isRequisito = requisitosKeywords.some((word) => trimmedLine.includes(word));
+  
+      if (matchedKey) {
+        currentKey = matchedKey;
+        sections[currentKey] = [];
+      } else if (isRequisito) {
+        currentKey = "Requisitos";
+        if (!sections[currentKey]) {
+          sections[currentKey] = [];
+        }
+        sections[currentKey].push(trimmedLine);
+      } else if (currentKey) {
+        if (!sections[currentKey]) {
+          sections[currentKey] = [];
+        }
+        sections[currentKey].push(trimmedLine);
+      }
+    });
+  
+    return sections;
+  };
+  
 
-    <section className="search-section">
-      <input type="text" name="nombre" placeholder="Nombre" className="input-field" value={jobInfo.nombre} onChange={onChange} />
-      <input type="text" name="telefono" placeholder="Teléfono" className="input-field" value={jobInfo.telefono} onChange={onChange} />
-      <input type="text" name="correo" placeholder="Correo Electrónico" className="input-field" value={jobInfo.correo} onChange={onChange} />
-      
-      {jobInfo.habilidades.map((skill, index) => (
-        <input key={index} type="text" placeholder={`Habilidad ${index + 1}`} className="input-field" value={skill} onChange={(e) => onInputChange(index, e.target.value)} />
-      ))}
+  // Divide la descripción del trabajo
+  const sections = parseDescription(job.description);
 
-      <select name="experiencia" className="input-field" value={jobInfo.experiencia} onChange={onChange}>
-        <option value="">Selecciona la experiencia</option>
-        {opcionesExperiencia.map(opt => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+  return (
+    <div className="job-details-container">
+      {/* Encabezado */}
+      <div className="job-header">
+        <button className="back-button" onClick={onBack}>← Volver</button>
+        <h1 className="job-title">{job.title}</h1>
+        <p className="job-location">{job.city}</p>
+      </div>
+
+      {/* Descripción del trabajo */}
+      <div className="job-description">
+        {Object.entries(sections).map(([key, lines], index) => (
+          <div key={index} className="job-section">
+            <h2 className="section-title">{key}</h2>
+            <ul className="section-list">
+              {lines.map((line, idx) => (
+                <li key={idx} className="section-item">{line}</li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </select>
+      </div>
 
-      <input type="text" name="intereses" placeholder="Intereses" className="input-field" value={jobInfo.intereses} onChange={onChange} />
-      <input type="text" name="porque" placeholder="¿Por qué quieres trabajar con nosotros?" className="input-field" value={jobInfo.porque} onChange={onChange} />
+      {/* Formulario */}
+      <div className="form-section">
+        <h2 className="form-title">Completa tu información</h2>
+        <form className="user-form">
+          <div className="form-group">
+            <label htmlFor="nombre" className="form-label">Nombre completo:</label>
+            <input
+              id="nombre"
+              type="text"
+              name="nombre"
+              placeholder="Nombre completo"
+              className="form-input"
+              value={jobInfo.nombre}
+              onChange={onChange}
+            />
+          </div>
 
-      <button className="search-button" onClick={onSubmit}>Generar Carta de Presentación</button>
-    </section>
+          <div className="form-group">
+            <label htmlFor="telefono" className="form-label">Teléfono:</label>
+            <input
+              id="telefono"
+              type="text"
+              name="telefono"
+              placeholder="Teléfono"
+              className="form-input"
+              value={jobInfo.telefono}
+              onChange={onChange}
+            />
+          </div>
 
-    {coverLetter && (
-      <section className="cover-letter">
-        <h3>Carta de Presentación Generada:</h3>
-        <div className="cover-letter-box">
-          <p>{coverLetter}</p>
+          <div className="form-group">
+            <label htmlFor="correo" className="form-label">Correo electrónico:</label>
+            <input
+              id="correo"
+              type="email"
+              name="correo"
+              placeholder="Correo electrónico"
+              className="form-input"
+              value={jobInfo.correo}
+              onChange={onChange}
+            />
+          </div>
+
+          {jobInfo.habilidades.map((skill, index) => (
+            <div className="form-group" key={index}>
+              <label htmlFor={`habilidad-${index}`} className="form-label">Habilidad {index + 1}:</label>
+              <input
+                id={`habilidad-${index}`}
+                type="text"
+                placeholder={`Ingresa Habilidad`}
+                className="form-input"
+                value={skill}
+                onChange={(e) => onInputChange(index, e.target.value)}
+              />
+            </div>
+          ))}
+
+          <div className="form-group">
+            <label htmlFor="experiencia" className="form-label">Nivel de experiencia:</label>
+            <select
+              id="experiencia"
+              name="experiencia"
+              className="form-input"
+              value={jobInfo.experiencia}
+              onChange={onChange}
+            >
+              <option value="">Selecciona tu experiencia</option>
+              {opcionesExperiencia.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="intereses" className="form-label">Intereses:</label>
+            <input
+              id="intereses"
+              type="text"
+              name="intereses"
+              placeholder="Intereses"
+              className="form-input"
+              value={jobInfo.intereses}
+              onChange={onChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="porque" className="form-label">¿Por qué quieres trabajar con nosotros?</label>
+            <textarea
+              id="porque"
+              name="porque"
+              placeholder="Explica tus motivaciones"
+              className="form-textarea"
+              value={jobInfo.porque}
+              onChange={onChange}
+            />
+          </div>
+
+          <button type="button" className="submit-button" onClick={onSubmit}>
+            Generar Carta de Presentación
+          </button>
+        </form>
+      </div>
+
+      {/* Carta de presentación generada */}
+      {coverLetter && (
+        <div className="cover-letter-section">
+          <h2 className="cover-letter-title">Carta de Presentación Generada</h2>
+          <div className="cover-letter-box">
+            <p>{coverLetter}</p>
+          </div>
         </div>
-      </section>
-    )}
-  </div>
-);
+      )}
+    </div>
+  );
+};
 
 export default JobDetails;
