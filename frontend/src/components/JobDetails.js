@@ -1,28 +1,43 @@
-import React, { useState } from 'react';
-import '../styles/JobDetails.css';
+import React from 'react';
 
-function JobDetails({ job, onBack }) {
-  const [coverLetter, setCoverLetter] = useState('');
+const JobDetails = ({ job, onBack, jobInfo, onInputChange, onChange, onSubmit, opcionesExperiencia, coverLetter }) => (
+  <div className="job-details">
+    <button onClick={onBack}>Volver</button>
+    <h2>{job.title}</h2>
+    <p>{job.city}</p>
+    <p>{job.description}</p>
 
-  const generateCoverLetter = () => {
-    setCoverLetter(`Querido empleador, estoy muy interesado en el puesto de ${job.title}. Con mi experiencia en ${job.description}, estoy seguro de que soy el candidato ideal.`);
-  };
+    <section className="search-section">
+      <input type="text" name="nombre" placeholder="Nombre" className="input-field" value={jobInfo.nombre} onChange={onChange} />
+      <input type="text" name="telefono" placeholder="Teléfono" className="input-field" value={jobInfo.telefono} onChange={onChange} />
+      <input type="text" name="correo" placeholder="Correo Electrónico" className="input-field" value={jobInfo.correo} onChange={onChange} />
+      
+      {jobInfo.habilidades.map((skill, index) => (
+        <input key={index} type="text" placeholder={`Habilidad ${index + 1}`} className="input-field" value={skill} onChange={(e) => onInputChange(index, e.target.value)} />
+      ))}
 
-  return (
-    <div className="job-details">
-      <button className="back-button" onClick={onBack}>Volver</button>
-      <h2>{job.title}</h2>
-      <p>{job.description}</p>
-      <button className="generate-button" onClick={generateCoverLetter}>Generar Carta de Presentación</button>
+      <select name="experiencia" className="input-field" value={jobInfo.experiencia} onChange={onChange}>
+        <option value="">Selecciona la experiencia</option>
+        {opcionesExperiencia.map(opt => (
+          <option key={opt.value} value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
 
-      {coverLetter && (
-        <div className="cover-letter">
-          <h3>Carta de Presentación:</h3>
+      <input type="text" name="intereses" placeholder="Intereses" className="input-field" value={jobInfo.intereses} onChange={onChange} />
+      <input type="text" name="porque" placeholder="¿Por qué quieres trabajar con nosotros?" className="input-field" value={jobInfo.porque} onChange={onChange} />
+
+      <button className="search-button" onClick={onSubmit}>Generar Carta de Presentación</button>
+    </section>
+
+    {coverLetter && (
+      <section className="cover-letter">
+        <h3>Carta de Presentación Generada:</h3>
+        <div className="cover-letter-box">
           <p>{coverLetter}</p>
         </div>
-      )}
-    </div>
-  );
-}
+      </section>
+    )}
+  </div>
+);
 
 export default JobDetails;

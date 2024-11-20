@@ -20,7 +20,8 @@ const AdBanner = () => {
         <img src={randomAd.imageUrl} alt={randomAd.title} className="ad-image" />
         <div className="ad-info">
           <h3 className="ad-title">{randomAd.title}</h3>
-          <p className="ad-views">{Math.floor(Math.random() * 1000) + 'K views'}</p>
+          {/*<p className="ad-views">{Math.floor(Math.random() * 1000) + 'K views'}</p>*/}
+          
         </div>
       </a>
       <a href={randomAd.link} target="_blank" rel="noopener noreferrer">
