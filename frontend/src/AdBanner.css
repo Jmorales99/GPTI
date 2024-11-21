@@ -1,91 +1,78 @@
-.ad-banner-bottom {
-    position: fixed; /* Fija la posición en la parte inferior */
-    bottom: 0;
-    left: 0;
-    width: 100%; /* Ocupa todo el ancho */
-    background-color: #fff; /* Fondo blanco */
-    border-top: 1px solid #ddd; /* Línea superior */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra superior */
-    z-index: 100; /* Asegura que esté por encima de otros elementos */
-    text-align: center;
-    display: flex; /* Organiza los banners en una fila */
-    justify-content: center; /* Centra los banners */
-    padding: 15px 0;
+.ad-banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px; /* Reducir el padding general para mejor ajuste */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 1200px;
+    margin: 20px auto;
   }
-
-.ad-banner-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #f8f8f8;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    z-index: 10;
-    padding: 15px 0;
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: black;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
-
-.ad-content {
+  
+  .close-button:hover {
+    background: #ff3c3c;
+  }
+  
+  .ad-content {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: inherit;
-    flex-grow: 1;
-}
-
-.ad-image {
-    width: 80px;
+    width: 100%; /* Asegura que ocupe el ancho completo del contenedor */
+  }
+  
+  .ad-image {
+    width: 250px; /* Ajustar el tamaño de la imagen */
     height: auto;
     margin-right: 15px;
-    border-radius: 5px;
-}
-
-.ad-info {
-    flex-grow: 1;
-}
-
-.ad-title {
-    font-size: 16px;
+  }
+  
+  .ad-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaciado entre elementos */
+    flex-grow: 1; /* Permite que el texto use más espacio */
+  }
+  
+  .ad-title {
+    font-size: 20px; /* Aumentar el tamaño de la fuente */
     margin: 0;
-    color: #333;
-}
-
-.ad-views {
-    font-size: 12px;
-    margin: 2px 0;
-    color: #666;
-}
-
-.ad-button {
-    background-color: #4a90e2;
+    font-weight: bold;
+  }
+  
+  .ad-button {
+    padding: 12px 20px; /* Ajustar el tamaño del botón */
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 14px;
     border-radius: 3px;
-    transition: background-color 0.3s;
-}
-
-.ad-button:hover {
-    background-color: #357ab8;
-}
-
-/* Estilo para el botón de cierre ("X") */
-.close-button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: transparent;
-    border: none;
-    font-size: 16px;
-    color: #999;
     cursor: pointer;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.close-button:hover {
-    color: #333;
-}
+    text-align: center;
+    font-size: 16px; /* Aumentar el tamaño de la fuente del botón */
+    width: fit-content; /* Evita que el botón sea más pequeño de lo necesario */
+  }
+  
+  .ad-button:hover {
+    background-color: #0056b3;
+  }
+  

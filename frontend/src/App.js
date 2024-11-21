@@ -2,7 +2,20 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import AdBanner from './AdBanner';
 import JobDetails from './components/JobDetails';
+import adsData from './adsData';
+
 function App() {
+
+  const [selectedAds, setSelectedAds] = useState([]);
+
+  const selectUniqueAds = (count) => {
+    const shuffledAds = [...adsData].sort(() => Math.random() - 0.5); // Mezcla los anuncios.
+    return shuffledAds.slice(0, count); // Selecciona `count` anuncios únicos.
+  };
+  React.useEffect(() => {
+    setSelectedAds(selectUniqueAds(2)); // Seleccionar 2 anuncios únicos.
+  }, []);
+
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredJobs, setFilteredJobs] = useState([]);
@@ -201,7 +214,10 @@ function App() {
                 <JobItem key={job.id} job={job} onViewDetails={() => handleViewDetails(job)} />
               ))}
 
-            <section className="job-list">
+            </section>
+
+          )}
+          
             <div className="pagination-controls">
                 <button onClick={handlePrevPage} disabled={pagination.currentPage === 1}>
                   Anterior
@@ -211,9 +227,7 @@ function App() {
                   Siguiente
                 </button>
               </div>
-            </section>
-            </section>
-          )}
+
         </>
       )}
       <Footer />
@@ -236,15 +250,14 @@ const Navbar = () => (
 const Footer = () => (
   <nav className="footer">
         <AdBanner position="bottom" />
-        <AdBanner position="bottom" />
-        <AdBanner position="bottom" />
+        {/*<AdBanner position="bottom" />*/}
   </nav>
 );
 
 const JobItem = ({ job, onViewDetails }) => (
   <div className="job-item">
     <h2>{job.title}</h2>
-    <p>{job.city}</p>
+    <p>Ubicacion: {job.city}</p>
     <button onClick={onViewDetails}>Abrir Detalles</button>
   </div>
 );

@@ -1,64 +1,66 @@
 // adsData.js
 const adsData = [
     {
-      id: 1,
-      imageUrl: 'https://images.unsplash.com/photo-1512499617640-c2f9992f5e9f', // Electronics
-      link: 'https://www.electronics-store.com',
-      title: '50% Off on Electronics!',
+      id: 0,
+      imageUrl: require('./adsPics/Casa.jpeg'),
+      link: 'https://propiedades.elmercurio.com/propiedades/casa-en-venta-en-las-condes-cod47442179.html',
+      title: 'Casa en Venta en Las Condes',
     },
+
+    {
+      id: 1,
+      imageUrl: require('./adsPics/Falabella.jpg'),
+      link: 'https://www.falabella.com/falabella-cl',
+      title: 'Ofertas Navideñas en Falabella',
+    },
+    
     {
       id: 2,
-      imageUrl: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f', // Fashion
-      link: 'https://www.fashion-store.com',
-      title: 'New Fall Collection!',
+      imageUrl: require('./adsPics/BurgerKing.webp'),
+      link: 'https://www.burgerking.cl/',
+      title: 'Promoción Burger King',
     },
     {
       id: 3,
-      imageUrl: 'https://images.unsplash.com/photo-1542831371-d531d36971e6', // Food Delivery
-      link: 'https://www.fooddelivery.com',
-      title: 'Get $10 Off Your First Order',
+      imageUrl: require('./adsPics/BurgerKing1.jpeg'),
+      link: 'https://www.burgerking.cl/cupones/?coupon=30-off-combo-bacon-king-doble&id=2372',
+      title: '30% OFF Combo Bacon King Doble',
     },
     {
       id: 4,
-      imageUrl: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0', // Travel
-      link: 'https://www.travel.com',
-      title: 'Plan Your Perfect Getaway',
+      imageUrl: require('./adsPics/BurgerKing2.jpeg'),
+      link: 'https://www.burgerking.cl/cupones/?coupon=30-off-combo-bacon-king-triple&id=3436/',
+      title: '30% OFF Combo Bacon King Triple',
     },
     {
       id: 5,
-      imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475', // Tech
-      link: 'https://www.techstore.com',
-      title: 'Latest Gadgets & Devices',
+      imageUrl: require('./adsPics/Lenovo.jpeg'),
+      link: 'https://www.lenovo.com/cl/es/d/ofertas/?orgRef=https%253A%252F%252Fcupon.cl%252F&cid=cl%3Aaffiliate%3A0qc2c4-tuscupones.com.mx&clickid=XGIUEfWHdxyKUB5VPCTaeUBZUkCQmZziRTdpSE0&irgwc=1',
+      title: 'Descuento en Lenovo',
     },
     {
       id: 6,
-      imageUrl: 'https://images.unsplash.com/photo-1500839941678-aae14dbfae9a', // Beauty
-      link: 'https://www.beautystore.com',
-      title: 'Top Beauty Products',
+      imageUrl: require('./adsPics/Emma.jpeg'),
+      link: 'https://www.emma-colchon.cl/combos/?awc=25386_1732158709_0d787cb4dcd0ef739db2644979019932&utm_source=awin-wwwsavingsunitedcom&utm_medium=affiliate&utm_campaign=413377&utm_content=LTKxzilCqz3WXK6NEdFdQHrCInu8UJA',
+      title: '70% OFF en Emma Conchones Chile',
     },
     {
       id: 7,
-      imageUrl: 'https://images.unsplash.com/photo-1554284126-aa88f22d8b65', // Fitness
-      link: 'https://www.fitnessworld.com',
-      title: 'Get Fit with New Gear',
+      imageUrl: require('./adsPics/LG.jpeg'),
+      link: 'https://www.lg.com/cl/ofertas-smart-tv/?cjdata=MXxOfDB8WXww&cjevent=6cfc1cb1a7b611ef8274a6c20a82b82d&UTM_Source=CJ&UTM_id=5024114&UTM_campaigns=Savings+United+LATAM&UTM_Medium=affiliate',
+      title: '46% OFF LG',
     },
     {
       id: 8,
-      imageUrl: 'https://images.unsplash.com/photo-1505691723518-36a0f233cde3', // Home Decor
-      link: 'https://www.homedecor.com',
-      title: 'Redesign Your Home',
+      imageUrl: require('./adsPics/BarceloHotel.jpeg'),
+      link: 'https://www.barcelo.com/es-cl/ofertas/?utm_id=275885868_128489544&utm_campaign=latam_es_afl_bc_x_alwayson-x-x-x-x-x-x_co&c_content=textlink&c_campaign=alwayson&c_term=2988890_&utm_medium=afi&utm_source=barcelo_affiliates&dclid=CJDZ2ZW67IkDFSFNuAQdelkE3Q',
+      title: 'Hasta un 40% OFF en Barceló Hotel',
     },
     {
       id: 9,
-      imageUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420', // Gaming
-      link: 'https://www.gaminghub.com',
-      title: 'Top Games at a Discount',
-    },
-    {
-      id: 10,
-      imageUrl: 'https://images.unsplash.com/photo-1555685812-4b7432b8b3df', // Pets
-      link: 'https://www.petstore.com',
-      title: 'Everything for Your Pets',
+      imageUrl: require('./adsPics/Aliexpress.jpeg'),
+      link: 'https://best.aliexpress.com/?wh_offline=true&gatewayAdapt=glo2esp&browser_redirect=true',
+      title: '$4.800 de descuento en Aliexpress',
     },
   ];
   

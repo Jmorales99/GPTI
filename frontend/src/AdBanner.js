@@ -1,31 +1,42 @@
-// AdBanner.js
 import React, { useState } from 'react';
 import adsData from './adsData';
 import './AdBanner.css';
 
 const AdBanner = () => {
+  // Estado para controlar la visibilidad del banner
   const [isVisible, setIsVisible] = useState(true);
+  
+  // Selecciona un anuncio aleatorio
   const randomAd = adsData[Math.floor(Math.random() * adsData.length)];
 
+  // Maneja el cierre del banner
   const handleClose = () => {
-    setIsVisible(false);
+    setIsVisible(false); // Oculta el banner
   };
 
+  // Si el banner no está visible, no renderiza nada
   if (!isVisible) return null;
 
   return (
     <div className="ad-banner">
-      <button className="close-button" onClick={handleClose}>X</button>
+      {/* Botón de cerrar */}
+      <button 
+        className="close-button" 
+        onClick={handleClose}
+        aria-label="Cerrar anuncio" // Accesibilidad
+      >
+        X
+      </button>
+
+      {/* Contenido del anuncio */}
       <a href={randomAd.link} target="_blank" rel="noopener noreferrer" className="ad-content">
         <img src={randomAd.imageUrl} alt={randomAd.title} className="ad-image" />
         <div className="ad-info">
           <h3 className="ad-title">{randomAd.title}</h3>
-          {/*<p className="ad-views">{Math.floor(Math.random() * 1000) + 'K views'}</p>*/}
-          
+          <a href={randomAd.link} target="_blank" rel="noopener noreferrer">
+            <button className="ad-button">Haz Click</button>
+          </a>
         </div>
-      </a>
-      <a href={randomAd.link} target="_blank" rel="noopener noreferrer">
-        <button className="ad-button">Click Here</button>
       </a>
     </div>
   );
