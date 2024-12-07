@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_USER=raibruh
+      - DATABASE_PASSWORD=Rai123
+      - POSTGRES_DB=gpti
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - PORT=3000
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_USER: raibruh
+      POSTGRES_PASSWORD: Rai123
+      POSTGRES_DB: gpti
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  scraper:
+    build:
+      context: ./scrapper_python
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://raibruh:Rai123@postgres:5432/gpti
+    command: python scrapper.py
+
+volumes:
+  postgres_data:
