@@ -1,6 +1,8 @@
-import requests
+    import requests
 from bs4 import BeautifulSoup
 import json
+import os
+
 url = 'https://www.chiletrabajos.cl/'
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
@@ -56,7 +58,7 @@ for category in categories:
                     "city":city if city != "" else "UNKNOWN",
                 }
 
-                endpoint_url = "http://api:3000/jobs/add"
+                endpoint_url = os.getenv("API_URL", "http://api:3000/jobs/add")
                 info = json.dumps(job_json)
                 requests.post(endpoint_url,data=job_json)
 
