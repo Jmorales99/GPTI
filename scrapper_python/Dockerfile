@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.9
 
 WORKDIR /scraper
 
@@ -7,4 +7,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "scraper.py"]
+EXPOSE 8080
+
+CMD ["python", "scrapper.py"]

@@ -5,7 +5,7 @@ dotenv.config();
 const app = require('./app');
 const orm = require('./models');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 orm.sequelize
   .authenticate()
