@@ -1,0 +1,132 @@
+/* JobDetails.css */
+
+.job-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #000000;
+}
+
+.job-header {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.job-title {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.job-location,
+.job-description {
+  color: #444242;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #007BFF;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.form-section {
+  margin-top: 30px;
+}
+
+.form-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-input,
+.form-textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+select:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.submit-button {
+  background: #007BFF;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background: #0056b3;
+}
+
+.cover-letter-section {
+  margin-top: 40px;
+  padding: 20px;
+  background: #fffbe6;
+  border: 1px solid #f5c518;
+  border-radius: 10px;
+}
+
+.cover-letter-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.cover-letter-box {
+  background: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(239, 0, 0, 0.1);
+}
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #171616;
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.copy-button:hover {
+  background-color: #0056b3;
+}

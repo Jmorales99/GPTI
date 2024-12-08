@@ -1,81 +1,156 @@
-.app-container {
+/* Estilos globales */
+body {
+  margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
-  padding: 20px;
-  text-align: center;
+  color: #333;
 }
 
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 120px;
+}
+
+.footer {
+  background-color: white;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+}
+
+/* Barra de navegación */
 .navbar {
-  background-color: #00aaff;
+  background-color: #4a90e2;
+  color: white;
   padding: 15px;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar-brand {
-  font-size: 1.5rem;
-  color: white;
+  font-size: 24px;
   font-weight: bold;
-  padding-left: 20px;
+}
+
+/* Encabezado */
+.app-header {
+  text-align: center;
+  margin: 20px 0;
 }
 
 .app-header h1 {
-  color: #333;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  font-size: 32px;
+  color: #4a90e2;
 }
 
-.search-section {
+/* Categorías */
+.category-list {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
-.input-field {
-  padding: 15px;
-  width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.search-button {
-  padding: 15px 30px;
-  background-color: #00aaff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.job-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.job-item {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
-}
-
-.job-item h2 {
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.job-item p {
-  font-size: 1rem;
-  color: #555;
-}
-
-.job-item button {
-  background-color: #00aaff;
+.category-button {
+  background-color: #4a90e2;
   color: white;
   border: none;
   padding: 10px 20px;
-  cursor: pointer;
+  margin: 5px;
   border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-button:hover {
+  background-color: #357ab8;
+}
+
+/* Lista de trabajos */
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.job-list-control {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 1900;
+  
+}
+/* Tarjetas de trabajo */
+.job-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  height: 100%; /* Uniformiza las alturas */
+}
+
+.job-item:hover {
+  transform: translateY(-3px);
+}
+
+.job-item button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: auto; /* Empuja el botón hacia el final */
+  align-self: flex-start; /* Alinea al borde izquierdo */
+}
+
+.job-item button:hover {
+  background-color: #357ab8;
+  transform: translateY(-2px);
+}
+
+.job-item button:active {
+  transform: translateY(0);
+  background-color: #2d6699;
+}
+
+/* Controles de paginación */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.pagination-controls button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:hover {
+  background-color: #357ab8;
+}
+
+.pagination-controls span {
+  font-size: 14px;
+  color: #555;
 }
