@@ -19,6 +19,7 @@
     "koa-logger": "^3.2.1",
     "koa-router": "^12.0.0",
     "mqtt": "^4.3.7",
+    "openai": "^4.76.0",
     "pg": "^8.10.0",
     "puppeteer": "^23.5.3",
     "sequelize": "^6.29.3",

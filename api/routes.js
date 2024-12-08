@@ -2,51 +2,12 @@
 const Router = require('koa-router');
 const router = new Router();
 const Sequelize = require('sequelize');
-// const { Job } = require('./models');
-// const { REAL } = require('sequelize');
+const { generarCartaPresentacion } = require('./chat/prompt');
 
 router.get('/', async (ctx) => {
   ctx.response.body = 'Bienvenido';
 });
-router.get('/test', async (ctx) => {
-  ctx.response.body = {
-    message: 'Hello World!',
-  };
-});
 
-// router.post('/jobs', async (ctx) => {
-//   try {
-//     const { category, jobs } = ctx.request.body;
-//     console.log(`Received ${jobs.length} jobs for category ${category}`);
-//     ctx.response.body = {
-//       message: 'Jobs received',
-//     };
-//     jobs.forEach(async (job) => {
-//       try {
-//         const [newJob, created] = await Job.findOrCreate({
-//           where: { link: job.link },
-//           defaults: job,
-//         });
-//         if (!created) {
-//           await Job.update(job, {
-//             where: { link: job.link },
-//           });
-//         }
-//       } catch (error) {
-//         console.error(`Error adding job to the database: ${error.message}`);
-//       }
-//     });
-//   } catch (error) {
-//     ctx.response.status = 500;
-//     ctx.response.body = {
-//       message: error.message,
-//       error: 'Error receiving jobs',
-//     };
-//   }
-// });
-router.post('/jobs/addtest', async (ctx) => {
-  console.log(ctx.request.body);
-})
 router.post('/jobs/add', async (ctx) => {
   const data = ctx.request.body;
 
@@ -103,30 +64,26 @@ router.post('/jobs/add', async (ctx) => {
 router.get('/jobs', async (ctx) => {
   try {
     queryParams = ctx.request.query;
-    const page = parseInt(queryParams.page, 10) || 1; // Número de página (1 por defecto)
-    const pageSize = parseInt(queryParams.pageSize, 10) || 10; // Tamaño de página (10 por defecto)
+    const page = parseInt(queryParams.page, 10) || 1;
+    const pageSize = parseInt(queryParams.pageSize, 10) || 10;
     
     const data = {
       ...(queryParams.city !== undefined && { city: queryParams.city }),
       ...(queryParams.category !== undefined && { category: queryParams.category })
     };
-    // 1. Contar el total de trabajos que cumplen con los filtros
     const totalJobs = await ctx.orm.Job.count({
       where: data,
     });
 
-    // 2. Calcular el número de páginas
     const totalPages = Math.ceil(totalJobs / pageSize);
 
-    // 3. Obtener los trabajos para la página actual
     const jobs = await ctx.orm.Job.findAll({
       where: data,
-      order: [['createdAt', 'DESC']], // Orden descendente
+      order: [['createdAt', 'DESC']],
       limit: pageSize,
       offset: (page - 1) * pageSize,
     });
 
-    // 4. Devolver los trabajos con información de paginación
     ctx.body = {
       jobs,
       pagination: {
@@ -144,6 +101,7 @@ router.get('/jobs', async (ctx) => {
     };
   }
 });
+
 router.get('/jobs/:link', async (ctx) => {
   try {
     const job = await ctx.orm.Job.findAll({
@@ -198,4 +156,24 @@ router.get('/categories', async (ctx) => {
     };
   }
 });
+
+router.post('/recomendaciones', async (ctx) => {
+  const { nombre, telefono, correo, habilidades, experiencia, intereses, porque, oferta } = ctx.request.body;
+  console.log({ nombre, telefono, correo, habilidades, experiencia, intereses, porque, oferta });
+  const datosCandidato = {
+    nombre,
+    telefono,
+    correo,
+    habilidades,
+    experiencia,
+    intereses,
+    porque,
+    oferta,
+  };
+  const carta = await generarCartaPresentacion(datosCandidato);
+  ctx.response.body = {
+    carta,
+  };
+});
+
 module.exports = router;
