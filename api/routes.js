@@ -47,46 +47,58 @@ router.get('/test', async (ctx) => {
 router.post('/jobs/addtest', async (ctx) => {
   console.log(ctx.request.body);
 })
-router.post('/jobs/add' , async (ctx) => {
+router.post('/jobs/add', async (ctx) => {
   const data = ctx.request.body;
-  // console.log(`Received ${jobs.length} jobs for category ${ctx.request.body.category}`);
-  
+
+  if (!data || !Array.isArray(data.jobs)) {
+    ctx.response.status = 400;
+    ctx.response.body = {
+      message: 'No job data provided or data is not an array',
+    };
+    return;
+  }
+
+  const category = data.category || '';
+
   try {
-    console.log(data.link);
-    const job = await ctx.orm.Job.findAll({
-      where: { link: data.link },
-    });
-    console.log(data);
-    if (job.length > 0) {
-      await ctx.orm.Job.update(data, {
-        where: { link: data.link },
+    for (const job of data.jobs) {
+      const jobData = {
+        title: job.title || '',
+        company: job.company || '',
+        city: job.city || '',
+        link: job.link || '',
+        category: category,
+        description: job.description || '',
+      };
+
+      const existingJob = await ctx.orm.Job.findAll({
+        where: { link: jobData.link },
       });
-      console.log('Job updated');
-    } else{
-      console.log(data);
-      await ctx.orm.Job.create({
-        title: data.title,
-        company: data.company,
-        city: data.city,
-        link: data.link,
-        category: data.category,
-        description: data.description,
-      });
+
+      if (existingJob.length > 0) {
+        await ctx.orm.Job.update(jobData, {
+          where: { link: jobData.link },
+        });
+        console.log(`Job updated: ${jobData.link}`);
+      } else {
+        await ctx.orm.Job.create(jobData);
+        console.log(`Job created: ${jobData.link}`);
+      }
     }
   } catch (error) {
-    console.error(`Error adding job to the database: ${error.message}`);
+    console.error(`Error adding jobs to the database: ${error.message}`);
     ctx.response.status = 500;
     ctx.response.body = {
       message: error.message,
-      error: 'Error adding job',
+      error: 'Error adding jobs',
     };
-    return
+    return;
   }
-  
-    ctx.response.body = {
-      message: 'Jobs received',
-    };
-    ctx.response.status = 201;
+
+  ctx.response.body = {
+    message: 'Jobs received',
+  };
+  ctx.response.status = 201;
 });
 router.get('/jobs', async (ctx) => {
   try {
