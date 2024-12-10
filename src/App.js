@@ -22,6 +22,29 @@ function App() {
     oferta: '',
   });
 
+  const formatCategoryName = (category) => {
+    // Manejar casos específicos
+    const specialCases = {
+      asistenteadministrativo: "ASISTENTE ADMINISTRATIVO",
+      serviciosdomesticos: "SERVICIOS DOMÉSTICOS",
+      esteticacuidadopersonal: "ESTÉTICA Y CUIDADO PERSONAL",
+      secretariasrecepcionistas: "SECRETARIAS RECEPCIONISTAS",
+    };
+  
+    // Si la categoría coincide con un caso especial, devuelve el formato adecuado
+    if (specialCases[category.toLowerCase()]) {
+      return specialCases[category.toLowerCase()];
+    }
+  
+    // Formatear otras categorías (por defecto)
+    return category
+      .replace(/([a-z])([A-Z])/g, "$1 $2") // Separar camelCase
+      .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2") // Manejar todas mayúsculas
+      .replace(/([A-Za-z])([0-9])/g, "$1 $2") // Separar texto de números (opcional)
+      .toUpperCase(); // Convertir todo a mayúsculas
+  };
+  
+  
   const [pagination, setPagination] = useState({}); // Paginación por categoría
 
   const opcionesExperiencia = [
@@ -46,19 +69,25 @@ function App() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        //const response = await fetch('http://localhost:3000/categories');
         const response = await fetch('https://gptjob-r4ne.onrender.com/categories');
         if (!response.ok) throw new Error('Error al obtener categorías desde el servidor');
 
         const categoriesData = await response.json();
-        setCategories(categoriesData.map(category => ({ category, jobs: [] })));
+        setCategories(
+          categoriesData.map((category) => ({
+            original: category, // Guarda el nombre original por si lo necesitas
+            formatted: formatCategoryName(category), // Guarda el nombre formateado
+            jobs: [],
+          }))
+        );
       } catch (error) {
-        console.error("Error al obtener categorías:", error);
+        console.error('Error al obtener categorías:', error);
       }
     };
 
     fetchCategories();
   }, []);
+
 
   // Fetch de trabajos según categoría y página
   const fetchJobs = async (category, page = 1) => {
@@ -185,10 +214,10 @@ function App() {
             {categories.map((category, index) => (
               <button
                 key={index}
-                onClick={() => handleCategoryClick(category.category)}
+                onClick={() => handleCategoryClick(category.original)} // Usa el original para las consultas
                 className="category-button"
               >
-                {category.category}
+                {category.formatted} {/* Usa el formateado para mostrar */}
               </button>
             ))}
           </section>
